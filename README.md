@@ -1,2 +1,2 @@
 # CoiniVox
-Decentralized escrow exchange
+Decentralized Barter Trading Exchange
