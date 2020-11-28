@@ -1,2 +1,2 @@
-# CoiniVox
-Decentralized Barter Trading Exchange
+# Tegalchain
+Decentralized forging and Trading Exchange
