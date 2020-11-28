@@ -1,2 +1,2 @@
 # Tegalchain
-Decentralized forging and Trading Exchange
+Decentralized Forging and Trading Exchange
