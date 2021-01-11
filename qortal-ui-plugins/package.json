@@ -1,0 +1,38 @@
+{
+  "name": "qortal-ui-plugins",
+  "version": "2.1.0",
+  "main": "default-plugins.js",
+  "repository": "https://github.com/QORT/qortal-ui-plugins.git",
+  "author": "QORTAL <admin@qortal.org>",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.7.7",
+    "@github/time-elements": "^3.1.1",
+    "@material/mwc-button": "^0.17.2",
+    "@material/mwc-dialog": "^0.17.2",
+    "@material/mwc-icon": "^0.17.2",
+    "@material/mwc-icon-button": "0.17.2",
+    "@material/mwc-slider": "^0.20.0",
+    "@material/mwc-textfield": "^0.17.2",
+    "@polymer/paper-progress": "^3.0.1",
+    "@polymer/paper-spinner": "^3.0.2",
+    "@vaadin/vaadin-grid": "^5.6.6",
+    "epml": "^0.3.3",
+    "html-escaper": "^3.0.0",
+    "lit-html": "^1.2.1",
+    "rollup": "^1.31.1",
+    "rollup-plugin-alias": "^2.2.0",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-globals": "^1.4.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-progress": "^1.1.1",
+    "rollup-plugin-replace": "^2.2.0",
+    "rollup-plugin-terser": "^5.2.0"
+  },
+  "dependencies": {
+    "@material/mwc-list": "^0.17.2",
+    "@material/mwc-select": "^0.17.2",
+    "emoji-picker-js": "https://github.com/lotw7277/emoji-picker-js"
+  }
+}
