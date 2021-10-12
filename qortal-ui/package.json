@@ -23,7 +23,7 @@
 		"update-package-json": "node update-package-json.js"
 	},
 	"devDependencies": {
-		"electron": "^11.1.1",
+		"electron": "^11.5.0",
 		"electron-builder": "^22.10.3",
 		"shelljs": "^0.8.4"
 	},
