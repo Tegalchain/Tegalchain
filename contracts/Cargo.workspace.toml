@@ -1,0 +1,21 @@
+[workspace]
+members = [
+    "tXc",
+    "tXb",
+    "tXw",
+    "tXs",
+    "tXi",
+    "token-factory",
+    "por-evidence-registry",
+    "poref-validation",
+    "impact-market",
+    "token-retirement",
+    "validator-slashing",
+    "reward-distribution"
+]
+resolver = "2"
+
+[workspace.package]
+version = "1.0.0"
+authors = ["Tegalchain Team"]
+edition = "2021"
