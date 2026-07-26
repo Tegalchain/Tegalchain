@@ -10,7 +10,7 @@ Describe the change and why it is needed.
 
 ## Impact
 - PoR layer affected (PoRE / PoREF / PoREX)
-- tX* tokens affected (tXc, tXb, tXw, tXs, tXi)
+- Transynths (tX*) affected (tXc, tXb, tXw, tXs, tXi)
 
 ## Checklist
 - [ ] Tests added

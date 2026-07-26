@@ -1,9 +1,9 @@
 # Tegalchain
 
-Tegalchain is a regenerative finance platform implementing the Proof of Resonance (PoR) Stack: PoRE (Proof of Regenerative Evidence), PoREF (Proof of Resonance Foundation) and PoREX (Proof of Resonance Exchange). The platform uses a Cosmos SDK-based chain with CosmWasm smart contracts (Rust), Go services for consensus, and Python services for real-time telemetry and analytics.
+Tegalchain is a regenerative finance platform implementing the Proof of Resonance (PoR) Stack: PoRE (Proof of Resonance Evidence), PoREF (Proof of Resonance Foundation) and PoREX (Proof of Resonance Exchange). The platform uses a Cosmos SDK-based chain with CosmWasm smart contracts (Rust), Go services for consensus, and Python services for real-time telemetry and analytics.
 
 Goals
-- Enable tokenized impact (tX* synthetic tokens) backed by verifiable regenerative evidence.
+- Enable tokenized impact via **Transitional Synthetic Assets (Transynths)** — digitally represented as **tX***, where * indexes environmentally provenance asset types — backed by verifiable resonance evidence.
 - Require green energy and verified environmental attributes for block creation.
 - Provide open, auditable, and community-driven DAO governance.
 

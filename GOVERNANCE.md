@@ -9,7 +9,7 @@ Roles
 - Council: elected body for high-level decisions and treasury governance
 
 Voting & treasury
-- TEGAL token governs protocol-level decisions; REGEN (utility) and tX* tokens represent impact/value.
+- TEGAL token governs protocol-level decisions; REGEN (utility) and Transynths (tX*) represent impact/value.
 - Treasury allocations are proposed and voted monthly.
 
 Dispute resolution
