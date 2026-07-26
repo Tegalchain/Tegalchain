@@ -27,4 +27,4 @@ Every channel has a **genesis config block** (block 0) and a **history of config
 
 Phase 1: `tegalchain/network_config.py` — `ConfigUpdateWorkflow`, `OrgMSPDefinition`, `ModificationPolicy`.
 
-See also [endorsement-policies.md](./endorsement-policies.md) · [contract-lifecycle.md](./contract-lifecycle.md) · [gossip.md](./gossip.md).
+See also [endorsement-policies.md](./endorsement-policies.md) · [contract-lifecycle.md](./contract-lifecycle.md) · [gossip.md](./gossip.md) · [protocol-upgrades.md](./protocol-upgrades.md) · [access-control-lists.md](./access-control-lists.md).
