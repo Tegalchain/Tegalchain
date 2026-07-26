@@ -7,7 +7,7 @@ Off-chain **client applications** interact with the permissioned network through
 1. Construct and sign transaction proposals  
 2. Submit proposals to peers for endorsement  
 3. Submit endorsed transactions to the ordering service  
-4. Query ledger state via peer read operations  
+4. Query ledger state via peer read operations (backed by the peer [state database](./state-database.md))  
 
 ## Client vs peer
 
@@ -32,4 +32,4 @@ Responsibilities are split today:
 
 Unified SDK consolidates these paths on the Cosmos target.
 
-See also [transaction-flow.md](./transaction-flow.md) · [contract-interface.md](./contract-interface.md) · [endorsement-policies.md](./endorsement-policies.md).
+See also [transaction-flow.md](./transaction-flow.md) · [contract-interface.md](./contract-interface.md) · [endorsement-policies.md](./endorsement-policies.md) · [state-database.md](./state-database.md).
