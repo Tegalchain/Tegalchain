@@ -18,5 +18,11 @@ Mechanics
 Distribution
 - Monthly distribution of newly minted Transynths (tX*): 60% miners, 20% DAO treasury, 15% validators, 5% community.
 
+Native token (TEGAL)
+- **TEGAL / uteg** is separate from Transynths — governance and utility, never pre-mined, impact-gated block issuance. See [TEGAL-TOKENS.md](https://github.com/Shootle/sovereign-ecosystem/blob/main/docs/contracts/TEGAL-TOKENS.md).
+
+Stable value (Voixcoin)
+- **Voixcoin** — minted only by locking **PA (Provenance Assets)** in the custodianless Greenledger collateral vault. See [VOIXCOIN.md](https://github.com/Shootle/sovereign-ecosystem/blob/main/docs/contracts/VOIXCOIN.md).
+
 Compliance
 - tX* redemption and retirement include audit trails, vintage metadata, and proofs stored in the PoREvidence registry (CosmWasm contract).
