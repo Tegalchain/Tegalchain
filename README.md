@@ -1,11 +1,25 @@
 # Tegalchain
 
-Tegalchain is a regenerative finance platform implementing the Proof of Resonance (PoR) Stack: PoRE (Proof of Resonance Evidence), PoREF (Proof of Resonance Foundation) and PoREX (Proof of Resonance Exchange). The platform uses a Cosmos SDK-based chain with CosmWasm smart contracts (Rust), Go services for consensus, and Python services for real-time telemetry and analytics.
+## What is Tegalchain?
+
+Tegalchain is a **permissioned distributed ledger protocol** designed for high-throughput, auditable record-keeping across multi-party networks. Unlike public blockchain networks optimised for open participation, Tegalchain prioritises **deterministic finality**, **regulatory compliance**, and **fine-grained access control** — making it well-suited for institutional, governmental, and enterprise deployments.
+
+## Greenledger application (Proof of Resonance)
+
+This repository also implements the **Greenledger** — an environmental and provenance layer on Tegalchain using the Proof of Resonance (PoR) stack:
+
+- **PoRE** — Proof of Resonance Evidence  
+- **PoREF** — Proof of Resonance Foundation  
+- **PoREX** — Proof of Resonance Exchange  
+
+The platform uses a Cosmos SDK-based chain with CosmWasm smart contracts (Rust), Go services for consensus, and Python services for real-time telemetry and analytics. The [sovereign-ecosystem](https://github.com/Shootle/sovereign-ecosystem) monorepo connects DePIN/utility producers via the **gretelemetry oracle**.
 
 Goals
 - Enable tokenized impact via **Transitional Synthetic Assets (Transynths)** — digitally represented as **tX***, where * indexes environmentally provenance asset types — backed by verifiable resonance evidence.
 - Require green energy and verified environmental attributes for block creation.
-- Provide open, auditable, and community-driven DAO governance.
+- Provide auditable, permissioned governance (TEGAL/uteg, DAO policy) over institutional-grade record-keeping.
+
+Canonical overview (permissioned ledger + monorepo mapping): [sovereign-ecosystem/docs/TEGALCHAIN.md](https://github.com/Shootle/sovereign-ecosystem/blob/main/docs/TEGALCHAIN.md)
 
 Quick start
 1. Install dependencies: Go, Rust (with wasm32-unknown-unknown target), Cargo, Node (for tooling), Python 3.10+, Docker.
