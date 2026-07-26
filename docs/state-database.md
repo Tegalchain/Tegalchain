@@ -21,6 +21,10 @@ Backend choice is **deployment-time only** — it does not affect consensus or c
 
 See also [client-applications.md](./client-applications.md) · [contract-interface.md](./contract-interface.md) · [gossip.md](./gossip.md).
 
+## State access
+
+Contracts use `ctx.state` — see [state-access-patterns.md](./state-access-patterns.md).
+
 ## Phase 1 (Greenledger)
 
 The Python mint queue (SQLite) is an application **outbox**, not peer ledger state. Peer state DB configuration applies to Cosmos SDK / Qortal chain node deployments on the target build.

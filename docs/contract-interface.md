@@ -29,7 +29,7 @@ A Tegalchain smart contract exposes **named functions** for client **invoke** (s
 | `ctx.state` | `deps.storage` |
 | `ctx.identity` | `info.sender` (+ tegalid-bound addresses) |
 
-See also [contract-lifecycle.md](./contract-lifecycle.md) · [endorsement-policies.md](./endorsement-policies.md) · [contract-best-practices.md](./contract-best-practices.md) · [cosmos-wasm-architecture.md](./cosmos-wasm-architecture.md).
+See also [contract-lifecycle.md](./contract-lifecycle.md) · [endorsement-policies.md](./endorsement-policies.md) · [contract-best-practices.md](./contract-best-practices.md) · [state-access-patterns.md](./state-access-patterns.md) · [cosmos-wasm-architecture.md](./cosmos-wasm-architecture.md).
 
 ## Phase 1 (Greenledger)
 
