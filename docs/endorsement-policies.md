@@ -16,7 +16,7 @@ OutOf(2, 'OrgA.peer', 'OrgB.peer', 'OrgC.peer')            # Any 2 of 3 must end
 
 ## Scope
 
-- Set **per smart contract** (CosmWasm instance on target runtime)
+- Set **per smart contract** (CosmWasm instance on target runtime), bound at **Approve** in [contract-lifecycle.md](./contract-lifecycle.md)
 - Updatable through **on-chain governance**
 - Verified again at **validation and commit** by all channel peers
 
@@ -24,4 +24,4 @@ OutOf(2, 'OrgA.peer', 'OrgB.peer', 'OrgC.peer')            # Any 2 of 3 must end
 
 Gretelemetry uses a **simplified single-oracle gate** (mint worker) instead of a full multi-org policy evaluator. Full `AND` / `OR` / `OutOf` evaluation is a **target** on the Cosmos channel.
 
-See also [transaction-flow.md](./transaction-flow.md) · [transactions.md](./transactions.md).
+See also [transaction-flow.md](./transaction-flow.md) · [transactions.md](./transactions.md) · [contract-lifecycle.md](./contract-lifecycle.md).
