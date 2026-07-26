@@ -73,6 +73,10 @@ flowchart TB
 
 ## TP-101 — GreenTelemetry
 
+**Standard:** [sovereign-ecosystem/docs/standards/TP-101-GREENTELEMETRY.md](https://github.com/Shootle/sovereign-ecosystem/blob/main/docs/standards/TP-101-GREENTELEMETRY.md)
+
+Produces **GreenTelemetry Records (GTRs)** — vendor-neutral, cryptographically signed environmental telemetry consumed by **TP-103** (archives), **TP-102** (attestation / validator eligibility), and **TP-106** (governance KPIs).
+
 Monorepo only (Replit: clone [sovereign-ecosystem](https://github.com/Shootle/sovereign-ecosystem) alongside this repo, or pull the monorepo and use `tegalchain-core/` as submodule).
 
 | Artifact | Location |
