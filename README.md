@@ -11,6 +11,8 @@ Tegalchain is a **permissioned distributed ledger protocol** designed for high-t
 - An **on-chain governance** system for protocol upgrades and network-wide decisions (see `GOVERNANCE.md`, sovereign-ecosystem [TEGAL-TOKENS.md](https://github.com/Shootle/sovereign-ecosystem/blob/main/docs/contracts/TEGAL-TOKENS.md))
 - A **pluggable consensus layer** supporting multiple Byzantine Fault Tolerant (BFT) algorithms (Cosmos SDK target; PoREF handles evidence-layer validator consensus)
 
+**Transactions:** the atomic unit of ledger change (sender, payload, nonce, signature, timestamp) — see [docs/transactions.md](./docs/transactions.md). **Blocks:** ordered transaction bundles from the ordering service — see [docs/blocks.md](./docs/blocks.md). **Lifecycle:** proposal → endorse → order → commit — see [docs/transaction-flow.md](./docs/transaction-flow.md).
+
 ## Greenledger application (Proof of Resonance)
 
 This repository also implements the **Greenledger** — an environmental and provenance layer on Tegalchain using the Proof of Resonance (PoR) stack:
