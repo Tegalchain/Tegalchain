@@ -2,13 +2,25 @@
 
 ## Transitional Synthetic Assets (Transynths)
 
-Transynths are digitally represented on-chain as **tX***, where * stands for multiple types of environmentally provenance assets. Examples:
+Transynths are digitally represented on-chain as **tX***, where * is a semantic asset-class suffix after the literal prefix `tX`. Naming rule: lowercase English words, except registered acronyms (`IREC`).
 
-- tXc — carbon (1 tXc = 1 ton CO₂e offset)
-- tXb — biodiversity (1 tXb = 0.1 hectares restored)
-- tXw — water (1 tXw = 1,000,000 liters conserved)
-- tXs — soil (1 tXs = 1 hectare regenerated)
-- tXi — I-REC (I-REC compliant renewable energy)
+| Token ID | Asset class | Unit (Phase 1 spec) |
+|----------|-------------|---------------------|
+| **tXcarbon** | Carbon offsets | 1 tXcarbon = 1 ton CO₂e offset |
+| **tXbiodiversity** | Biodiversity restoration | 1 tXbiodiversity = 0.1 hectares restored |
+| **tXwater** | Water conservation | 1 tXwater = 1,000,000 liters conserved |
+| **tXsoil** | Soil regeneration | 1 tXsoil = 1 hectare regenerated |
+| **tXIREC** | I-REC renewable energy certificates | I-REC compliant renewable energy |
+| **tXenergy** | Verified green energy production | Metered kWh / production telemetry |
+| **tXtel** | Telecom provenance | Bandwidth, CDR-normalized usage evidence |
+
+**Distinctions:**
+
+- **tXIREC** — certificate-style renewable energy (I-REC standard).
+- **tXenergy** — direct metered green energy from prosumer / utility telemetry (e.g. Bytenergy).
+- **tXtel** — telecom DePIN and voice-lab provenance (Zeegate, Phase 2 CDR adapter).
+
+CosmWasm crate paths use kebab-case (`tx-carbon/`, `tx-tel/`, …); on-chain token IDs use the **tX**{suffix} form above.
 
 Mechanics
 - Transynths (tX*) are minted by PoREX contracts when verified evidence from PoRE/PoREF meets thresholds.

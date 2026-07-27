@@ -28,7 +28,7 @@ This repository also implements the **Greenledger** (**TP-103**) — an environm
 The platform uses a Cosmos SDK-based chain with CosmWasm smart contracts (Rust), Go services for consensus, and Python services for real-time telemetry and analytics. The [sovereign-ecosystem](https://github.com/Shootle/sovereign-ecosystem) monorepo connects DePIN/utility producers via the **gretelemetry oracle**.
 
 Goals
-- Enable tokenized impact via **Transitional Synthetic Assets (Transynths)** — digitally represented as **tX***, where * indexes environmentally provenance asset types — backed by verifiable resonance evidence.
+- Enable tokenized impact via **Transitional Synthetic Assets (Transynths)** — **tXcarbon**, **tXbiodiversity**, **tXwater**, **tXsoil**, **tXIREC**, **tXenergy**, **tXtel** — backed by verifiable resonance evidence.
 - Require green energy and verified environmental attributes for block creation.
 - Provide auditable, permissioned governance (TEGAL/uteg, DAO policy) over institutional-grade record-keeping.
 

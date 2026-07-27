@@ -114,6 +114,8 @@ Monorepo only (Replit: clone [sovereign-ecosystem](https://github.com/Shootle/so
 
 ## TP-104 — Transynth Standard
 
+**Purpose:** On-chain **tX*** provenance assets — `tXcarbon`, `tXbiodiversity`, `tXwater`, `tXsoil`, `tXIREC`, `tXenergy`, `tXtel`.
+
 | Artifact | Location |
 |----------|----------|
 | tX* taxonomy and mint rules | [proof-of-resonance-exchange.md](./proof-of-resonance-exchange.md) |
