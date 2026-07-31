@@ -1,0 +1,138 @@
+Step 0 — Prep (once)
+cd ~/workspace/sovereign-ecosystem
+git pull origin main
+git submodule update --init tegalchain-core
+pip install -r requirements.txt
+Confirm Phase 1 still works:
+
+curl -s http://127.0.0.1:8090/health   # only if worker already running
+Step 1 — Shell 1: start mint worker (leave running)
+cd ~/workspace/sovereign-ecosystem
+export TEGALCHAIN_IDENTITY_MODE=dev
+export TEGALCHAIN_MINT_QUEUE_DB=tegalchain/data/mint_queue.db
+python -m integrations.mint_worker
+Check in another tab:
+
+curl -s http://127.0.0.1:8090/health | python -m json.tool
+Expect "status": "ok".
+
+Step 2 — Shell 2: stage sample CDR
+cd ~/workspace/sovereign-ecosystem
+mkdir -p /tmp/zeegate-cdr
+cp zeegate-cloud/cdr_adapter/fixtures/sample_cdr.csv /tmp/zeegate-cdr/Master.csv
+ls -la /tmp/zeegate-cdr/
+Note the space before /tmp:
+
+cp .../sample_cdr.csv /tmp/zeegate-cdr/Master.csv
+#                      ^ space required
+Step 3 — Run CDR adapter (once)
+cd ~/workspace/sovereign-ecosystem
+export ZEEGATE_CDR_DIR=/tmp/zeegate-cdr
+export MINT_WORKER_URL=http://127.0.0.1:8090
+export ZEEGATE_CDR_FALLBACK_SOURCE=edge001
+PYTHONPATH=zeegate-cloud python -m cdr_adapter once
+Success: adapter prints ingest result with a gtr_id (copy it).
+
+Step 4 — Drain mint queue (mock submitter)
+cd ~/workspace/sovereign-ecosystem
+export TEGALCHAIN_SUBMITTER_BACKEND=mock
+export TEGALCHAIN_MINT_QUEUE_DB=tegalchain/data/mint_queue.db
+bash scripts/replit-mint-drain.sh 5
+python -m tegalchain.submitter stats
+Success: "submitted": 1+, "failed": 0, violation_count: 0.
+
+Step 5 — Verify end-to-end record
+curl -s "http://127.0.0.1:8090/v1/telemetry/records/{gtr_id}" | python -m json.tool
+Replace {gtr_id} with the ID from Step 3.
+
+Field	Expected
+status
+"submitted"
+ledger_ref
+LABMOCK-…
+auditrail
+present
+greenledger_entry
+present (TP-103 GLE)
+Phase 2 exit criterion: done when this record came from CDR adapter (not Zeegate legacy client).
+
+Track B — Full voice lab (Docker + optional live CDR)
+You already ran ./up.sh successfully. Use this when you want real calls → CDR volume.
+
+Step B1 — Voice stack (Shell, or already done)
+cd ~/workspace/sovereign-ecosystem/zeegate-cloud/deploy
+./up.sh
+docker compose ps
+Expect zeegate-kamailio and zeegate-freeswitch Up.
+
+Step B2 — Mint worker (Shell 1, same as Track A Step 1)
+Same as Track A — keep running.
+
+Step B3 — Optional: place a test call
+Softphone: lab1000@zeegate.lab / lab1000 → dial 1000
+Or Zeegate edge: edge001@zeegate.lab / edge001
+Replit external SIP/RTP may be limited; calls are optional for the checkbox.
+
+Step B4 — Inspect CDR volume
+docker run --rm -v zeegate_cdr:/cdr:ro alpine ls -la /cdr
+If CSV files exist, copy or mount for the adapter. On Replit you may need to copy CSV out of the volume:
+
+docker run --rm -v zeegate_cdr:/cdr -v /tmp/zeegate-cdr:/out alpine \
+  sh -c "cp /cdr/*.csv /out/ 2>/dev/null || cp /cdr/Master.csv /out/ 2>/dev/null; ls -la /out"
+Step B5 — Run CDR watch (live path)
+cd ~/workspace/sovereign-ecosystem
+export ZEEGATE_CDR_DIR=/tmp/zeegate-cdr   # or mounted path
+export MINT_WORKER_URL=http://127.0.0.1:8090
+./scripts/zeegate-cdr-watch.sh once
+Or continuous:
+
+./scripts/zeegate-cdr-watch.sh watch 15 4
+Step B6 — Drain + verify (same as Track A Steps 4–5)
+export TEGALCHAIN_SUBMITTER_BACKEND=mock
+bash scripts/replit-mint-drain.sh 5
+curl -s "http://127.0.0.1:8090/v1/telemetry/records/{gtr_id}" | python -m json.tool
+Optional — continuous ops
+Auto-drain new ingests (Phase 1 pattern):
+
+export TEGALCHAIN_SUBMITTER_BACKEND=mock
+./scripts/replit-mint-watch.sh 20 30
+Stop voice stack:
+
+cd ~/workspace/sovereign-ecosystem/zeegate-cloud/deploy
+docker compose down
+Phase 2 checklist
+#	Step	Done when
+1
+Mint worker up
+/health → ok
+2
+CDR source ready
+fixture copied or Docker CDR volume has CSV
+3
+CDR adapter run
+gtr_id returned, queue row pending
+4
+Mock drain
+submitted + LABMOCK-…
+5
+Record verify
+ledger_ref + auditrail + greenledger_entry
+6
+(Optional) Voice stack
+Kamailio + FreeSWITCH Up
+Recommended order on Replit
+Track A (fixture) → close Phase 2 checkbox today
+Track B (Docker + calls) → when you want live voice/CDR path
+Troubleshooting
+Problem	Fix
+Adapter can't reach worker
+Mint worker running? MINT_WORKER_URL=http://127.0.0.1:8090
+503 on ingest
+export TEGALCHAIN_IDENTITY_MODE=dev; don't set TEGALCHAIN_REQUIRE_BEARER=1 without token
+No ledger_ref after adapter
+Run drain with TEGALCHAIN_SUBMITTER_BACKEND=mock
+cp error
+Space before destination: ...csv /tmp/...
+CDR adapter finds no rows
+Check ZEEGATE_CDR_DIR and Master.csv exists
+Paste adapter + drain output if you want help confirming Phase 2 is closed.

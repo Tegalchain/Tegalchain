@@ -1,0 +1,150 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Shootle/sovereign-ecosystem/green-ledger-spec/schema.json",
+  "title": "GreenLedgerProtocol",
+  "description": "TP-103 GreenLedger — archival GLE records. See docs/standards/TP-103-GREENLEDGER.md.",
+  "definitions": {
+    "uuid_v4": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "iso8601_timestamp": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]+)?Z$"
+    },
+    "content_hash_hex": {
+      "type": "string",
+      "pattern": "^[0-9a-fA-F]{64}$"
+    },
+    "ledger_ref": {
+      "description": "On-chain tx hash (0x + 64 hex) or Phase 1 lab ref (LABMOCK-…).",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "measurement_type": {
+      "enum": [
+        "CO2E",
+        "CH4",
+        "N2O",
+        "ENERGY_KWH",
+        "ENERGY_MJ",
+        "WATER_M3",
+        "BIODIVERSITY",
+        "OFFSET_CREDIT",
+        "CUSTOM"
+      ]
+    },
+    "retention_class": {
+      "enum": ["STANDARD", "REGULATORY", "PERMANENT"]
+    },
+    "attestation_summary_item": {
+      "type": "object",
+      "properties": {
+        "attester_id": { "type": "string", "maxLength": 64 },
+        "attester_type": {
+          "enum": ["DEVICE", "OPERATOR", "THIRD_PARTY", "REGULATORY"]
+        },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+      },
+      "required": ["attester_id", "attester_type"],
+      "additionalProperties": false
+    },
+    "merkle_proof": {
+      "type": "object",
+      "properties": {
+        "merkle_root": { "$ref": "#/definitions/content_hash_hex" },
+        "siblings": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/content_hash_hex" }
+        }
+      },
+      "required": ["merkle_root", "siblings"],
+      "additionalProperties": false
+    },
+    "green_ledger_entry_v1": {
+      "description": "Archival representation of a finalized anchored GTR.",
+      "type": "object",
+      "properties": {
+        "gle_id": { "$ref": "#/definitions/uuid_v4" },
+        "gtr_id": { "$ref": "#/definitions/uuid_v4" },
+        "ledger_ref": { "$ref": "#/definitions/ledger_ref" },
+        "content_hash": { "$ref": "#/definitions/content_hash_hex" },
+        "source_id": { "type": "string", "maxLength": 64 },
+        "measurement_type": { "$ref": "#/definitions/measurement_type" },
+        "value": { "type": "number" },
+        "unit": { "type": "string", "maxLength": 16 },
+        "measurement_timestamp": { "$ref": "#/definitions/iso8601_timestamp" },
+        "anchor_timestamp": { "$ref": "#/definitions/iso8601_timestamp" },
+        "archive_timestamp": { "$ref": "#/definitions/iso8601_timestamp" },
+        "attestation_count": { "type": "integer", "minimum": 0 },
+        "attestation_summary": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/attestation_summary_item" },
+          "minItems": 1
+        },
+        "merkle_proof": { "$ref": "#/definitions/merkle_proof" },
+        "tags": {
+          "type": "array",
+          "items": { "type": "string", "maxLength": 64 },
+          "maxItems": 32
+        },
+        "retention_class": { "$ref": "#/definitions/retention_class" },
+        "schema_version": { "const": "1.0" },
+        "protocol_standard": { "const": "TP-103" }
+      },
+      "required": [
+        "gle_id",
+        "gtr_id",
+        "ledger_ref",
+        "content_hash",
+        "source_id",
+        "measurement_type",
+        "value",
+        "unit",
+        "measurement_timestamp",
+        "anchor_timestamp",
+        "archive_timestamp",
+        "attestation_count",
+        "attestation_summary",
+        "retention_class",
+        "schema_version",
+        "protocol_standard"
+      ],
+      "additionalProperties": false
+    },
+    "carbon_account_v1": {
+      "description": "Materialised Carbon Account per registered source entity.",
+      "type": "object",
+      "properties": {
+        "source_id": { "type": "string", "maxLength": 64 },
+        "period_start": { "$ref": "#/definitions/iso8601_timestamp" },
+        "period_end": { "$ref": "#/definitions/iso8601_timestamp" },
+        "gross_emissions_kgco2e": { "type": "number", "minimum": 0 },
+        "offset_credits_kgco2e": { "type": "number", "minimum": 0 },
+        "net_emissions_kgco2e": { "type": "number", "minimum": 0 },
+        "data_completeness": { "type": "number", "minimum": 0, "maximum": 1 },
+        "last_updated": { "$ref": "#/definitions/iso8601_timestamp" },
+        "schema_version": { "const": "1.0" },
+        "protocol_standard": { "const": "TP-103" }
+      },
+      "required": [
+        "source_id",
+        "period_start",
+        "period_end",
+        "gross_emissions_kgco2e",
+        "offset_credits_kgco2e",
+        "net_emissions_kgco2e",
+        "data_completeness",
+        "last_updated",
+        "schema_version",
+        "protocol_standard"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "oneOf": [
+    { "$ref": "#/definitions/green_ledger_entry_v1" },
+    { "$ref": "#/definitions/carbon_account_v1" }
+  ]
+}

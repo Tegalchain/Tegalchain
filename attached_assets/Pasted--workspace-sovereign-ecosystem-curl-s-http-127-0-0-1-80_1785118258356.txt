@@ -1,0 +1,98 @@
+/workspace/sovereign-ecosystem$ curl -s "http://127.0.0.1:8090/v1/telemetry/record/7542b54e-457e-4416-904d-abf570529d5a
+"|python -m json.tool
+{
+    "detail": "Not Found"
+}
+~/workspace/sovereign-ecosystem$ curl -s "http://127.0.0.1:8090/v1/telemetry/records/7542b54e-457e-4416-904d-abf570529d5
+a"|python -m json.tool
+{
+    "gtr_id": "7542b54e-457e-4416-904d-abf570529d5a",
+    "record": {
+        "attestations": [
+            {
+                "attester_id": "zerocell-node-001",
+                "attester_type": "DEVICE",
+                "confidence": 0.9,
+                "signature": "15afe5b0c1c58e48c32c5f801c872f1474d528f4a4e09c981d844292dcd9c804e4f035b441cba0e16eda830071c11c03f328685b61902ff683ebe39692323b03",
+                "timestamp": "2026-07-27T01:48:29Z"
+            }
+        ],
+        "gtr_id": "7542b54e-457e-4416-904d-abf570529d5a",
+        "measurement_type": "CUSTOM",
+        "metadata": {
+            "legacy_envelope": "sovereign_node_telemetry",
+            "legacy_metric": "telecom_bandwidth_bytes",
+            "system_type": "ZEEGATE_TELECOM"
+        },
+        "schema_version": "1.0",
+        "source_id": "zerocell-node-001",
+        "source_type": "API",
+        "timestamp": "2026-07-27T01:48:29Z",
+        "unit": "bytes",
+        "value": 1048576.0
+    },
+    "attestations": [
+        {
+            "attester_id": "zerocell-node-001",
+            "attester_type": "DEVICE",
+            "confidence": 0.9,
+            "signature": "15afe5b0c1c58e48c32c5f801c872f1474d528f4a4e09c981d844292dcd9c804e4f035b441cba0e16eda830071c11c03f328685b61902ff683ebe39692323b03",
+            "timestamp": "2026-07-27T01:48:29Z"
+        }
+    ],
+    "on_chain_anchor": {
+        "anchor_timestamp": "2026-07-27T01:52:45Z",
+        "attester_ids": [
+            "zerocell-node-001"
+        ],
+        "content_hash": "f98f95c32030b404c1517a25e6c277656ca19d45cabd0e129913e8b36c472b35",
+        "gtr_id": "7542b54e-457e-4416-904d-abf570529d5a",
+        "measurement_type": "CUSTOM",
+        "timestamp": "2026-07-27T01:48:29Z",
+        "type": "GTR_ANCHOR"
+    },
+    "auditrail": {
+        "anchor_timestamp": "2026-07-27T01:52:45Z",
+        "auditrail_record_type": "GREETELEMETRY",
+        "binding_id": null,
+        "content_hash": "f98f95c32030b404c1517a25e6c277656ca19d45cabd0e129913e8b36c472b35",
+        "correlated_at": "2026-07-27T01:52:46.134119+00:00",
+        "gtr_id": "7542b54e-457e-4416-904d-abf570529d5a",
+        "project_id": null,
+        "queue_id": 2,
+        "submit_ref": "LABMOCK-5495E57D4B5AAE1271BCC84A5063A8A3FAC9FA91-Q000002",
+        "submitted_at": "2026-07-27T01:52:45.986536+00:00",
+        "tegalid_did": "zerocell-node-001",
+        "telemetry_hash": "ca7bc43ed7c476d6380ea914413985dacfce6647c46ddf6e52ecac37529fc149"
+    },
+    "greenledger_entry": {
+        "anchor_timestamp": "2026-07-27T01:52:45Z",
+        "archive_timestamp": "2026-07-27T01:52:46Z",
+        "attestation_count": 1,
+        "attestation_summary": [
+            {
+                "attester_id": "zerocell-node-001",
+                "attester_type": "DEVICE",
+                "confidence": 0.9
+            }
+        ],
+        "content_hash": "f98f95c32030b404c1517a25e6c277656ca19d45cabd0e129913e8b36c472b35",
+        "gle_id": "ff578998-ab9d-47a5-8e82-b018bf8c485b",
+        "gtr_id": "7542b54e-457e-4416-904d-abf570529d5a",
+        "ledger_ref": "LABMOCK-5495E57D4B5AAE1271BCC84A5063A8A3FAC9FA91-Q000002",
+        "measurement_timestamp": "2026-07-27T01:48:29Z",
+        "measurement_type": "CUSTOM",
+        "protocol_standard": "TP-103",
+        "retention_class": "STANDARD",
+        "schema_version": "1.0",
+        "source_id": "zerocell-node-001",
+        "unit": "bytes",
+        "value": 1048576.0
+    },
+    "ledger_ref": "LABMOCK-5495E57D4B5AAE1271BCC84A5063A8A3FAC9FA91-Q000002",
+    "status": "submitted",
+    "queue_id": 2,
+    "created_at": "2026-07-27T01:48:29.780261+00:00",
+    "submitted_at": "2026-07-27T01:52:45.986536+00:00",
+    "accepted_at": "2026-07-27T01:48:29.780062+00:00"
+}

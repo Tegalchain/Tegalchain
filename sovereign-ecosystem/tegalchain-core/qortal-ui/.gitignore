@@ -1,0 +1,9 @@
+# FIles
+.env
+
+# Folders
+builtWWW/
+node_modules/
+electron-builder.old.yml
+electron-builder.json
+dist/

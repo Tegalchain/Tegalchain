@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+dist/
+build/
+*.egg
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# IDE / OS
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Android (zeegate)
+zeegate/.gradle/
+zeegate/**/build/
+zeegate/local.properties
+zeegate/.cxx/
+zeegate/*.iml
+zeegate/.kotlin/
+zeegate/.junie/
+zeegate/*.apk
+zeegate/pjsip_source/
+zeegate/pjsip.zip
+zeegate/*.docx
+zeegate/*.rtf
+zeegate/blockchain/bridge/output/
+
+# Tegalchain mint queue (Phase 1c)
+tegalchain/data/*.db
+tegalchain/data/outbox/*.json
+tegalchain/data/tegalid_bindings.json
+
+# Cursor
+.cursor/

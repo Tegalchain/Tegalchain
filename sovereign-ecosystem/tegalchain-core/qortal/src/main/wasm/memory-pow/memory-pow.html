@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+	<head>
+		<script>
+			var memory = new WebAssembly.Memory({ initial: 256, maximum: 256 });
+			var heap = new Uint8Array(memory.buffer);
+			var brk = 512 * 1024; // stack top
+
+			var sbrk = function(size) {
+				var old = brk;
+				brk += size;
+
+				if (brk > heap.length)
+					throw new Error("heap exhausted");
+
+				return old;
+			};
+
+			var importObject = {
+				env: { 
+					memory: memory
+				},
+			};
+
+			WebAssembly.instantiateStreaming(fetch('memory-pow.wasm'), importObject)
+			.then(obj => {
+				window.instance = obj.instance;
+				window._compute2 = obj.instance.exports.compute2;
+			});
+
+			var hashPtr = sbrk(32);
+			var hashAry = new Uint8Array(memory.buffer, hashPtr, 32);
+			hashAry.set([250, 34, 223, 225, 218, 144, 19, 179, 193, 20, 80, 64, 172, 174, 144, 137, 224, 192, 139, 193, 193, 160, 113, 150, 20, 244, 183, 58, 221, 111, 110, 245]);
+
+			var workBufferLength = 8 * 1024 * 1024;
+			var workBufferPtr = sbrk(workBufferLength);
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

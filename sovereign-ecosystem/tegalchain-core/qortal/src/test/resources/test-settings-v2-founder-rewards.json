@@ -1,0 +1,7 @@
+{
+  "restrictedApi": false,
+  "blockchainConfig": "src/test/resources/test-chain-v2-founder-rewards.json",
+  "wipeUnconfirmedOnStart": false,
+  "testNtpOffset": 0,
+  "minPeers": 0
+}

@@ -1,0 +1,34 @@
+<include>
+  <!-- Phase 2 lab dialplan — reached via Kamailio dispatcher (set 1) -->
+
+  <extension name="zeegate_echo">
+    <condition field="destination_number" expression="^1000$">
+      <action application="answer"/>
+      <action application="sleep" data="500"/>
+      <action application="echo"/>
+    </condition>
+  </extension>
+
+  <extension name="zeegate_tone">
+    <condition field="destination_number" expression="^2000$">
+      <action application="answer"/>
+      <action application="playback" data="tone_stream://%(2000,0,640,480)"/>
+    </condition>
+  </extension>
+
+  <extension name="zeegate_bridge_edge">
+    <condition field="destination_number" expression="^3000$">
+      <action application="set" data="hangup_after_bridge=true"/>
+      <action application="set" data="continue_on_fail=true"/>
+      <action application="bridge" data="sofia/external/sip:edge001@kamailio:5060"/>
+    </condition>
+  </extension>
+
+  <extension name="zeegate_lab_fallback">
+    <condition field="destination_number" expression="^3[0-9]{3}$">
+      <action application="answer"/>
+      <action application="playback" data="ivr/ivr-welcome_to_freeswitch.wav"/>
+      <action application="hangup" data="NORMAL_CLEARING"/>
+    </condition>
+  </extension>
+</include>

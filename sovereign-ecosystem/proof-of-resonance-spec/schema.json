@@ -1,0 +1,207 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Shootle/sovereign-ecosystem/proof-of-resonance-spec/schema.json",
+  "title": "ProofOfResonanceProtocol",
+  "description": "TP-102 Proof of Resonance — RFM outputs and validator resonance profiles. See docs/standards/TP-102-PROOF-OF-RESONANCE.md.",
+  "oneOf": [
+    { "$ref": "#/definitions/regenerative_finance_metrics_v1" },
+    { "$ref": "#/definitions/validator_resonance_profile_v1" },
+    { "$ref": "#/definitions/poref_validator_vote_v1" },
+    { "$ref": "#/definitions/slash_evidence_v1" },
+    { "$ref": "#/definitions/validator_registration_v1" }
+  ],
+  "definitions": {
+    "uuid_v4": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "iso8601_timestamp": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]+)?Z$"
+    },
+    "score_unit_interval": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "resonance_score_centile": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "scoring_profile": {
+      "enum": ["phase1_oracle", "poref_full"]
+    },
+    "validator_class": {
+      "enum": ["ENERGY", "ENVIRONMENTAL", "COMMUNITY"]
+    },
+    "regenerative_finance_metrics_v1": {
+      "description": "PoRE output — Regenerative Finance Metrics (RFM) for one verified GTR.",
+      "type": "object",
+      "properties": {
+        "rfm_id": { "$ref": "#/definitions/uuid_v4" },
+        "gtr_id": { "$ref": "#/definitions/uuid_v4" },
+        "gtr_hash": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{64}$"
+        },
+        "schema_version": { "const": "1.0" },
+        "protocol_standard": { "const": "TP-102" },
+        "eqs": { "$ref": "#/definitions/score_unit_interval" },
+        "riv": { "type": "number", "minimum": 0 },
+        "consensus_confidence": { "$ref": "#/definitions/score_unit_interval" },
+        "resonance_score": { "$ref": "#/definitions/resonance_score_centile" },
+        "scoring_profile": { "$ref": "#/definitions/scoring_profile" },
+        "scored_at": { "$ref": "#/definitions/iso8601_timestamp" },
+        "measurement_type": { "type": "string", "maxLength": 32 },
+        "source_id": { "type": "string", "maxLength": 64 },
+        "binding_attestation_score": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Tegalid identity gate score (TP-101 ingress); distinct from EQS."
+        }
+      },
+      "required": [
+        "rfm_id",
+        "gtr_id",
+        "gtr_hash",
+        "schema_version",
+        "protocol_standard",
+        "eqs",
+        "riv",
+        "consensus_confidence",
+        "resonance_score",
+        "scoring_profile",
+        "scored_at"
+      ],
+      "additionalProperties": false
+    },
+    "validator_resonance_dimensions_v1": {
+      "type": "object",
+      "properties": {
+        "r_env": { "$ref": "#/definitions/score_unit_interval" },
+        "r_gov": { "$ref": "#/definitions/score_unit_interval" },
+        "r_up": { "$ref": "#/definitions/score_unit_interval" },
+        "r_cmp": { "$ref": "#/definitions/score_unit_interval" }
+      },
+      "required": ["r_env", "r_gov", "r_up", "r_cmp"],
+      "additionalProperties": false
+    },
+    "validator_resonance_profile_v1": {
+      "description": "PoREF validator eligibility — multi-dimensional Resonance alignment score.",
+      "type": "object",
+      "properties": {
+        "validator_id": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "validator_class": { "$ref": "#/definitions/validator_class" },
+        "schema_version": { "const": "1.0" },
+        "protocol_standard": { "const": "TP-102" },
+        "resonance_score": { "$ref": "#/definitions/score_unit_interval" },
+        "dimensions": { "$ref": "#/definitions/validator_resonance_dimensions_v1" },
+        "eligible_for_block_production": { "type": "boolean" },
+        "eligible_for_governance": { "type": "boolean" },
+        "gtr_count_current_month": { "type": "integer", "minimum": 0 },
+        "scored_at": { "$ref": "#/definitions/iso8601_timestamp" },
+        "scoring_profile": { "$ref": "#/definitions/scoring_profile" }
+      },
+      "required": [
+        "validator_id",
+        "validator_class",
+        "schema_version",
+        "protocol_standard",
+        "resonance_score",
+        "dimensions",
+        "eligible_for_block_production",
+        "eligible_for_governance",
+        "scored_at",
+        "scoring_profile"
+      ],
+      "additionalProperties": false
+    },
+    "poref_validator_vote_v1": {
+      "description": "PoREF vote on a GTR evidence commitment or block candidate.",
+      "type": "object",
+      "properties": {
+        "vote_id": { "$ref": "#/definitions/uuid_v4" },
+        "validator_id": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "validator_class": { "$ref": "#/definitions/validator_class" },
+        "gtr_id": { "$ref": "#/definitions/uuid_v4" },
+        "gtr_hash": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{64}$"
+        },
+        "decision": { "enum": ["ACCEPT", "REJECT", "ABSTAIN"] },
+        "eqs": { "$ref": "#/definitions/score_unit_interval" },
+        "riv": { "type": "number", "minimum": 0 },
+        "signature": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{128}$"
+        },
+        "voted_at": { "$ref": "#/definitions/iso8601_timestamp" }
+      },
+      "required": [
+        "vote_id",
+        "validator_id",
+        "validator_class",
+        "gtr_id",
+        "gtr_hash",
+        "decision",
+        "voted_at"
+      ],
+      "additionalProperties": false
+    },
+    "slash_condition": {
+      "enum": [
+        "PROVABLE_DOUBLE_SIGNING",
+        "EQUIVOCATION_FINALITY",
+        "FABRICATED_GTR"
+      ]
+    },
+    "slash_evidence_v1": {
+      "description": "Slash evidence submitted to TP-106 governance.",
+      "type": "object",
+      "properties": {
+        "validator_id": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "condition": { "$ref": "#/definitions/slash_condition" },
+        "proof": { "type": "string", "minLength": 1 },
+        "block_heights": {
+          "type": "array",
+          "items": { "type": "integer", "minimum": 0 },
+          "minItems": 1
+        },
+        "timestamps": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/iso8601_timestamp" },
+          "minItems": 1
+        }
+      },
+      "required": ["validator_id", "condition", "proof", "block_heights", "timestamps"],
+      "additionalProperties": false
+    },
+    "validator_registration_v1": {
+      "description": "Validator registration payload for PoREF onboarding.",
+      "type": "object",
+      "properties": {
+        "validator_id": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "identity_tier": { "type": "integer", "minimum": 2 },
+        "bond_tegals": { "type": "integer", "minimum": 10000 },
+        "baseline_gtr_days": { "type": "integer", "minimum": 90 },
+        "jurisdiction": { "type": "string", "minLength": 1 },
+        "infrastructure_provider": { "type": "string", "minLength": 1 },
+        "energy_source_attestation": { "type": "string", "minLength": 1 },
+        "policy_statement_uri": { "type": "string", "format": "uri" }
+      },
+      "required": [
+        "validator_id",
+        "identity_tier",
+        "bond_tegals",
+        "baseline_gtr_days",
+        "jurisdiction",
+        "infrastructure_provider",
+        "energy_source_attestation",
+        "policy_statement_uri"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

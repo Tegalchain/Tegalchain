@@ -1,0 +1,33 @@
+{
+	"name": "qortal-ui",
+	"version": "1.4.1",
+	"description": "Qortal Project - decentralize the world - Data storage, communications, web hosting, decentralized trading, complete infrastructure for the future blockchain-based Internet",
+	"main": "electron.js",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Qortal/qortal-ui.git"
+	},
+	"author": "QORTAL <admin@qortal.org>",
+	"license": "MIT",
+	"scripts": {
+		"dev": "node server.js",
+		"build-dev": "node build.js",
+		"build": "set NODE_ENV=production && node build.js",
+		"server": "set NODE_ENV=production && node server.js",
+		"watch": "node watch.js",
+		"watch-inline": "node watch-inline.js",
+		"start-electron": "set NODE_ENV=production && electron .",
+		"build-electron": "electron-builder build  --publish never",
+		"deploy-electron": "electron-builder build --win --publish never",
+		"release": "NODE_ENV=production electron-builder build --publish always",
+		"update-package-json": "node update-package-json.js"
+	},
+	"devDependencies": {
+		"electron": "^11.1.1",
+		"electron-builder": "^22.10.3",
+		"shelljs": "^0.8.4"
+	},
+	"dependencies": {
+		"electron-updater": "^4.3.5"
+	}
+}

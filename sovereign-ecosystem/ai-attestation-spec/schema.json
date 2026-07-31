@@ -1,0 +1,94 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Shootle/sovereign-ecosystem/ai-attestation-spec/schema.json",
+  "title": "AiAttestationProfile",
+  "description": "TP-108 AI attestation metadata block (tp108) embedded in TP-101 Attestation.metadata. See docs/standards/TP-108-AI-ATTESTATION.md.",
+  "definitions": {
+    "uuid_v4": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "content_hash_hex": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "semver_108": {
+      "type": "string",
+      "pattern": "^1\\.0\\.0$"
+    },
+    "claim_type": {
+      "enum": ["PLAUSIBILITY", "CORROBORATION", "COMPLETENESS", "BINDING_RISK"]
+    },
+    "verdict": {
+      "enum": ["PASS", "WARN", "FAIL"]
+    },
+    "tp108_metadata_v1": {
+      "type": "object",
+      "properties": {
+        "protocol_standard": {
+          "type": "string",
+          "const": "TP-108"
+        },
+        "schema_version": {
+          "$ref": "#/definitions/semver_108"
+        },
+        "claim_type": {
+          "$ref": "#/definitions/claim_type"
+        },
+        "model_profile": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "inputs_hash": {
+          "$ref": "#/definitions/content_hash_hex"
+        },
+        "verdict": {
+          "$ref": "#/definitions/verdict"
+        },
+        "score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "subject_gtr_id": {
+          "$ref": "#/definitions/uuid_v4"
+        },
+        "corroboration_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "maxItems": 32
+        },
+        "rationale_uri": {
+          "type": "string",
+          "format": "uri",
+          "maxLength": 512
+        },
+        "model_version": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "policy_id": {
+          "type": "string",
+          "maxLength": 64
+        }
+      },
+      "required": [
+        "protocol_standard",
+        "schema_version",
+        "claim_type",
+        "model_profile",
+        "inputs_hash",
+        "verdict"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "oneOf": [
+    { "$ref": "#/definitions/tp108_metadata_v1" }
+  ]
+}

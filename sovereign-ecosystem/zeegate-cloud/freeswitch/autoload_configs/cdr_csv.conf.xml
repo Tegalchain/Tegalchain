@@ -1,0 +1,11 @@
+<configuration name="cdr_csv.conf" description="Zeegate lab CDR">
+  <settings>
+    <param name="default-template" value="zeegate"/>
+    <param name="log-base" value="/var/log/freeswitch/cdr-csv"/>
+    <param name="rotate-on-hangup" value="true"/>
+    <param name="legs" value="a"/>
+  </settings>
+  <templates>
+    <template name="zeegate">"${uuid}","${caller_id_number}","${destination_number}","${start_stamp}","${end_stamp}","${duration}","${billsec}","${hangup_cause}","${read_bytes}","${write_bytes}"</template>
+  </templates>
+</configuration>

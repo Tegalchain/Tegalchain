@@ -1,0 +1,9 @@
+{
+  "bitcoinNet": "TEST3",
+  "litecoinNet": "TEST3",
+  "restrictedApi": false,
+  "blockchainConfig": "src/test/resources/test-chain-v2.json",
+  "wipeUnconfirmedOnStart": false,
+  "testNtpOffset": 0,
+  "minPeers": 0
+}

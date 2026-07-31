@@ -1,0 +1,4 @@
+# Kamailio dbtext subscriber table (plaintext passwords; auth_db calculates HA1).
+# Columns: id username domain password email ha1 ha1b rpid
+1:edge001:zeegate.lab:edge001::::
+2:lab1000:zeegate.lab:lab1000::::

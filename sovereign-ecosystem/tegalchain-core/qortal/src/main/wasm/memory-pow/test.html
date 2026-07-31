@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+	<head>
+		<script>
+			var memory = new WebAssembly.Memory({ initial: 256, maximum: 256 });
+			var heap = new Uint8Array(memory.buffer);
+			var brk = 512 * 1024; // stack top
+
+			var sbrk = function(size) {
+				var old = brk;
+				brk += size;
+
+				if (brk > heap.length)
+					throw new Error("heap exhausted");
+
+				return old;
+			};
+
+			var importObject = {
+				env: { 
+					memory: memory,
+				},
+			};
+
+			WebAssembly.instantiateStreaming(fetch('test.wasm'), importObject)
+			.then(obj => {
+				window.instance = obj.instance;
+				for (f in obj.instance.exports)
+					if (obj.instance.exports[f] instanceof Function && f.charAt(0) != '_')
+						window["_" + f] = obj.instance.exports[f];
+			});
+
+			var hashPtr = sbrk(32);
+			var hashAry = new Uint8Array(memory.buffer, hashPtr, 32);
+			hashAry.set([250, 34, 223, 225, 218, 144, 19, 179, 193, 20, 80, 64, 172, 174, 144, 137, 224, 192, 139, 193, 193, 160, 113, 150, 20, 244, 183, 58, 221, 111, 110, 245]);
+
+			var longHashPtr = sbrk(4 * 8);
+			var longHashAry = new BigUint64Array(memory.buffer, longHashPtr, 4);
+
+			var statePtr = sbrk(4 * 8);
+			var stateAry = new BigUint64Array(memory.buffer, statePtr, 4);
+
+			var resultPtr = sbrk(8);
+			var resultAry = new BigUint64Array(memory.buffer, resultPtr, 1);
+
+			var workBufferLength = 8 * 1024 * 1024;
+			var workBufferPtr = sbrk(workBufferLength);
+			var workBufferAry = new BigUint64Array(memory.buffer, workBufferPtr, workBufferLength / 8);
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

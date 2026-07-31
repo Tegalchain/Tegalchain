@@ -1,0 +1,10 @@
+Host github.com
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/github
+    IdentitiesOnly yes
+
+Host *.replit.dev
+    Port 22
+    IdentityFile ~/.ssh/replit
+    StrictHostKeyChecking accept-new
