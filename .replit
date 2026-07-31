@@ -11,3 +11,26 @@ externalPort = 80
 [[ports]]
 localPort = 8090
 externalPort = 3000
+
+[workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Mint Worker"
+
+[[workflows.workflow]]
+name = "Mint Worker"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd /home/runner/workspace/sovereign-ecosystem && TEGALCHAIN_IDENTITY_MODE=tegalid TEGALCHAIN_REQUIRE_BEARER=1 TEGALID_BINDINGS_FILE=$(pwd)/tegalchain/data/tegalid_bindings.example.json TEGALCHAIN_MINT_QUEUE_DB=$(pwd)/tegalchain/data/mint_queue.db TEGALCHAIN_OUTBOX_DIR=$(pwd)/tegalchain/data/outbox TEGALCHAIN_SUBMITTER_BACKEND=mock python3 -m integrations.mint_worker"
+
+[workflows.workflow.metadata]
+outputType = "console"
