@@ -1,10 +1,12 @@
 [workspace]
 members = [
-    "tXc",
-    "tXb",
-    "tXw",
-    "tXs",
-    "tXi",
+    "tx-carbon",
+    "tx-biodiversity",
+    "tx-water",
+    "tx-soil",
+    "tx-irec",
+    "tx-energy",
+    "tx-tel",
     "token-factory",
     "por-evidence-registry",
     "poref-validation",
