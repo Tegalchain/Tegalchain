@@ -4,7 +4,7 @@
 
 ### Environment Specs
 - **Go**: 1.26.3
-- **Ignite CLI**: v0.29.10  
+- **Ignite CLI**: v29.10.1  
 - **Rust**: 1.96.0
 - **Cosmos SDK**: v0.53.6
 - **Buf**: v1.70.0
@@ -23,8 +23,44 @@ go version  # Should show: go version go1.26.3 linux/amd64
 **Solution:**
 ```bash
 export PATH=~/.ignite/bin:$PATH
-ignite version  # Should show: v0.29.10
+ignite version  # Should show: v29.10.1
 ```
+
+#### ❌ Nix / Firecracker `ignite` vs Cosmos Ignite CLI (Replit)
+**Symptom:** Replit (or another Nix-based environment) prompts to install `ignite` via Nix, or `which ignite` points to a Nix store path instead of `~/.ignite/bin/ignite`.
+
+**Root cause:** The Nix package named `ignite` is **Firecracker** (a microVM tool), not the [Cosmos Ignite CLI](https://github.com/ignite/cli). Installing it shadows the blockchain CLI.
+
+**Solution:**
+```bash
+# Answer "No" to the Nix ignite prompt during setup.
+
+# Install the Cosmos Ignite CLI manually:
+rm -rf ~/.ignite/bin/*
+mkdir -p ~/.ignite/bin
+curl -fsSL \
+  https://github.com/ignite/cli/releases/download/v29.10.1/ignite_29.10.1_linux_amd64.tar.gz \
+  | tar xz -C ~/.ignite/bin
+
+export PATH="$HOME/.ignite/bin:$PATH"
+which ignite    # Should be: ~/.ignite/bin/ignite
+ignite version  # Should show: v29.10.1
+```
+
+#### ❌ `tar: Unexpected EOF` or 9-byte gzip archive
+**Symptom:** `curl ... | tar xz` fails immediately; downloaded file is only 9 bytes.
+
+**Root cause:** The release URL uses an **invalid tag** (e.g. `v0.29.10`). Ignite renamed tags from `v0.29.x` to `v29.x` — old URLs return a GitHub 404 HTML page (~9 bytes), not a tarball.
+
+**Solution:** Use the correct tag and filename:
+```bash
+curl -fsSL \
+  https://github.com/ignite/cli/releases/download/v29.10.1/ignite_29.10.1_linux_amd64.tar.gz \
+  | tar xz -C ~/.ignite/bin
+```
+
+> **Tag naming:** `v29.10.1` (correct) — not `v0.29.10`. v29.x matches Cosmos SDK v0.53.x.
+
 
 #### ❌ "undefined: AccAddress" or "undefined: sdk.AccAddress"
 **Root Cause:** Incorrect import path in `.go` files

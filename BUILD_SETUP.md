@@ -17,10 +17,12 @@ This guide helps you set up and build Tegalchain in Google Colab with the correc
 | Tool | Version | Status |
 |------|---------|--------|
 | Go | 1.26.3 | ✓ Required |
-| Ignite CLI | v0.29.10 | ✓ Required |
+| Ignite CLI | v29.10.1 | ✓ Required |
 | Rust | 1.96.0 | ✓ Required |
 | Cosmos SDK | v0.53.6 | ✓ Required |
 | Buf | v1.70.0 | ✓ Required |
+
+> **Replit / Nix:** If prompted to install `ignite` via Nix (Firecracker), answer **No**. That package is unrelated to the Cosmos Ignite CLI and will shadow the correct binary.
 
 ---
 
@@ -57,9 +59,10 @@ curl -L https://go.dev/dl/go1.26.3.linux-amd64.tar.gz | tar xz
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 rustup target add wasm32-unknown-unknown
 
-# Install Ignite CLI v0.29.10
+# Install Ignite CLI v29.10.1
+# Note: Ignite renamed release tags from v0.29.x to v29.x (no leading 0).
 mkdir -p ~/.ignite/bin
-curl -L https://github.com/ignite/cli/releases/download/v0.29.10/ignite_0.29.10_linux_amd64.tar.gz | tar xz -C ~/.ignite/bin
+curl -fsSL https://github.com/ignite/cli/releases/download/v29.10.1/ignite_29.10.1_linux_amd64.tar.gz | tar xz -C ~/.ignite/bin
 
 # Setup PATH
 export PATH=~/go/bin:~/.ignite/bin:~/.cargo/bin:/usr/local/bin:$PATH
@@ -68,7 +71,7 @@ export GOPATH=~/go
 
 # Verify
 go version      # Should be: go1.26.3
-ignite version  # Should be: v0.29.10
+ignite version  # Should be: v29.10.1
 rustc --version # Should be: 1.96.0
 ```
 
@@ -195,7 +198,7 @@ Comprehensive reference guide with:
 Before running `ignite chain build`, verify:
 
 - [ ] `go version` shows go1.26.3
-- [ ] `ignite version` shows v0.29.10
+- [ ] `ignite version` shows v29.10.1
 - [ ] `rustc --version` shows 1.96.0
 - [ ] `buf --version` shows 1.70.0
 - [ ] `go mod verify` passes

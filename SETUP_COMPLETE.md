@@ -42,7 +42,7 @@ export CGO_ENABLED=0
 
 # Cell 2: Verify tools
 go version      # Should be: go1.26.3
-ignite version  # Should be: v0.29.10
+ignite version  # Should be: v29.10.1
 rustc --version # Should be: 1.96.0
 
 # Cell 3: Fix imports & build
@@ -58,7 +58,7 @@ ignite chain build
 | Component | Version | Required |
 |-----------|---------|----------|
 | Go | 1.26.3 | ✅ |
-| Ignite CLI | v0.29.10 | ✅ |
+| Ignite CLI | v29.10.1 | ✅ |
 | Rust | 1.96.0 | ✅ |
 | Cosmos SDK | v0.53.6 | ✅ |
 | Buf | v1.70.0 | ✅ |
@@ -72,7 +72,7 @@ ignite chain build
 1. Initial environment verification
 2. Install Go 1.26.3
 3. Install Rust 1.96.0
-4. Install Ignite CLI v0.29.10
+4. Install Ignite CLI v29.10.1
 5. Install Buf v1.70.0
 6. Configure environment variables
 7. Final verification
@@ -159,7 +159,7 @@ Before running `ignite chain build`, verify:
 
 ```bash
 ✓ go version              # Should show: go1.26.3
-✓ ignite version         # Should show: v0.29.10
+✓ ignite version         # Should show: v29.10.1
 ✓ rustc --version        # Should show: 1.96.0
 ✓ buf --version          # Should show: 1.70.0
 ✓ go mod verify          # Should pass
@@ -174,7 +174,7 @@ Before running `ignite chain build`, verify:
 ### Successful Environment Setup
 ```
 ✓ Go Version: go version go1.26.3 linux/amd64
-✓ Ignite CLI Version: v0.29.10
+✓ Ignite CLI Version: v29.10.1
 ✓ Rust Version: rustc 1.96.0
 ✓ Buf Version: 1.70.0
 ✓ go mod verify: PASS
@@ -297,7 +297,7 @@ After successful setup, you'll have:
 
 You now have a **complete, tested, production-ready setup** for Tegalchain development in Google Colab with:
 
-- ✅ Correct tool versions (Go 1.26.3, Ignite v0.29.10, Rust 1.96.0)
+- ✅ Correct tool versions (Go 1.26.3, Ignite v29.10.1, Rust 1.96.0)
 - ✅ Automated setup (one-click in Colab)
 - ✅ Import path fixes (auto-repair)
 - ✅ Comprehensive diagnostics (debug helper)
