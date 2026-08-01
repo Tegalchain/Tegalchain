@@ -1,0 +1,14 @@
+syntax = "proto3";
+package chain.gretelemetry.v1;
+
+import "amino/amino.proto";
+import "gogoproto/gogo.proto";
+
+option go_package = "github.com/Tegalchain/Tegalchain/chain/x/gretelemetry/types";
+
+// Params defines the parameters for the module.
+message Params {
+  option (amino.name) = "chain/x/gretelemetry/Params";
+  option (gogoproto.equal) = true;
+  
+}
