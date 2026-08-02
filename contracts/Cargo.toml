@@ -1,0 +1,30 @@
+[workspace]
+members = ["tx-tel"]
+resolver = "2"
+
+[workspace.package]
+version = "1.0.0"
+authors = ["Tegalchain Team"]
+edition = "2021"
+license = "Apache-2.0"
+
+[workspace.dependencies]
+cosmwasm-std = "1.5.11"
+cosmwasm-schema = "1.5.11"
+cw-storage-plus = "1.2.0"
+cw2 = "1.1.2"
+schemars = "0.8.21"
+serde = { version = "1.0.217", default-features = false, features = ["derive"] }
+thiserror = "1.0.69"
+
+# CosmWasm release profile (size + deterministic wasm)
+[profile.release]
+opt-level = 3
+debug = false
+rpath = false
+lto = true
+debug-assertions = false
+codegen-units = 1
+panic = "abort"
+incremental = false
+overflow-checks = true

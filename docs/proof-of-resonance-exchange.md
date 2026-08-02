@@ -27,6 +27,17 @@ Mechanics
 - AMM + order book implemented via CosmWasm contracts for liquidity and trading.
 - Retirement mechanism burns tokens upon confirmed corporate offset or consumption to avoid double-counting.
 
+### Lab mint gates (tx-tel)
+
+| Gate | Phase 1 lab default |
+|------|---------------------|
+| EQS | ≥ 0.70 |
+| RIV | > 0 |
+| Consensus Confidence | 1.0 (oracle) |
+| Evidence Resonance | ≥ 50 |
+
+Implemented in `contracts/tx-tel/` (on-chain) and mirrored off-chain for intent recording until wasmd is enabled (`COSMWASM-ENABLEMENT.md`).
+
 Distribution
 - Monthly distribution of newly minted Transynths (tX*): 60% miners, 20% DAO treasury, 15% validators, 5% community.
 

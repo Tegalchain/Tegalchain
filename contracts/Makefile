@@ -1,20 +1,22 @@
-.PHONY: build test optimize deploy
+.PHONY: build test optimize deploy install-rust
+
+install-rust:
+	./scripts/install-rust.sh
 
 build:
-	for d in $(shell ls -d ./*/ | grep -v scripts | sed 's/^\.\///' | sed 's/\///g'); do \
-		cd $$d && if [ -f Cargo.toml ]; then cargo wasm || true; fi; cd - >/dev/null; \
-	done
+	@if [ ! -f Cargo.toml ]; then echo "ERROR: run from contracts/"; exit 1; fi
+	CARGO_TARGET_DIR=$${CARGO_TARGET_DIR:-$(CURDIR)/target} \
+		cargo build --release --target wasm32-unknown-unknown -p tx-tel
 
 test:
-	for d in $(shell ls -d ./*/ | grep -v scripts | sed 's/^\.\///' | sed 's/\///g'); do \
-		cd $$d && if [ -f Cargo.toml ]; then cargo test || true; fi; cd - >/dev/null; \
-	done
+	@if [ ! -f Cargo.toml ]; then echo "ERROR: run from contracts/"; exit 1; fi
+	CARGO_TARGET_DIR=$${CARGO_TARGET_DIR:-$(CURDIR)/target} \
+		cargo test -p tx-tel
 
 optimize:
-	# Requires cosmwasm-optimize in PATH
-	for d in $(shell ls -d ./*/ | grep -v scripts | sed 's/^\.\///' | sed 's/\///g'); do \
-		cd $$d && if [ -f Cargo.toml ]; then cosmwasm-optimize || true; fi; cd - >/dev/null; \
-	done
+	@echo "Requires docker + cosmwasm/optimizer (optional for lab)"
+	@echo "  docker run --rm -v \"\$$(pwd)\":/code cosmwasm/optimizer:0.16.0"
+	@false
 
 deploy:
 	./scripts/deploy-contracts.sh

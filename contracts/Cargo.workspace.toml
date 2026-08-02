@@ -1,20 +1,7 @@
+# Deprecated filename — Cargo reads Cargo.toml.
+# Kept for older docs; workspace members live in ./Cargo.toml (tx-tel only for now).
 [workspace]
-members = [
-    "tx-carbon",
-    "tx-biodiversity",
-    "tx-water",
-    "tx-soil",
-    "tx-irec",
-    "tx-energy",
-    "tx-tel",
-    "token-factory",
-    "por-evidence-registry",
-    "poref-validation",
-    "impact-market",
-    "token-retirement",
-    "validator-slashing",
-    "reward-distribution"
-]
+members = ["tx-tel"]
 resolver = "2"
 
 [workspace.package]

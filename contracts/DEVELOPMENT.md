@@ -1,14 +1,30 @@
 # Development — Contracts
 
-Setup
-1. Install Rust (stable) and add target: `rustup target add wasm32-unknown-unknown`.
-2. Install `cargo-generate`, `wasm-bindgen-cli` if needed, and CosmWasm tooling.
-3. From `contracts/` run `make build` to compile wasm artifacts.
+## Setup
 
-Testing
-- Run `make test` to execute Rust unit tests for each contract crate.
+1. Install Rust (stable) and wasm target:
 
-Best practices
+   ```bash
+   ./scripts/install-rust.sh
+   ```
+
+   Works on Replit and WSL (curl + rustup).
+
+2. From `contracts/` run:
+
+   ```bash
+   make test    # unit tests
+   make build   # wasm32 artifacts per crate
+   ```
+
+## Workspace
+
+- Root `Cargo.toml` is the workspace (currently **`tx-tel` only**).
+- Add sibling crates when scaffolding the next tX*; keep unused planned names out of `members` until crates exist.
+
+## Best practices
+
 - Keep instantiate/execute/query interfaces minimal.
-- Use structured messages and version contracts.
-- Include thorough unit and integration tests.
+- Enforce PoREX gates on-chain (do not trust client-only checks).
+- Admin/oracle minter pattern for Phase 7 lab; rotate minter via `UpdateMinter`.
+- Include unit tests that cover pass/fail gate boundaries.

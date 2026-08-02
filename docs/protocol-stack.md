@@ -14,7 +14,7 @@ Index of **Tegal Protocol (TP)** standards. Subsystems at **TP-107** never talk 
 | Evidence | **TP-101** GreenTelemetry | Signed telemetry envelope from sovereign nodes | Monorepo — schema, mint worker, Zeegate/Bytenergy clients |
 | Trust | **TP-102** Proof of Resonance | Evidence quality, validator consensus, impact verification | **This repo** — PoR docs; full PoREF on Cosmos build |
 | Provenance | **TP-103** GreenLedger | Permissioned ledger, tegalid, Auditrail verified records | **This repo** + monorepo Python bridge |
-| Asset | **TP-104** Transynth Standard | tX* environmentally provenance assets | **This repo** — `contracts/`, PoREX docs |
+| Asset | **TP-104** Transynth Standard | tX* environmentally provenance assets | **This repo** — `contracts/tx-tel/` live; wasmd pending (`COSMWASM-ENABLEMENT.md`) |
 | Economic | **TP-105** Voixcoin | PA-collateralized stable value on custodianless ledger | [voixcoin.md](./voixcoin.md) |
 | Governance | **TP-106** TEGAL DAO | uteg governance, no pre-mine, impact-gated issuance | [tegal-tokens.md](./tegal-tokens.md), [GOVERNANCE.md](../GOVERNANCE.md) |
 | Integration | **TP-107** Sovereign Platforms | Independent DePIN / utility subsystems as producers | Monorepo — `zeegate/`, `bytenergy-utility/`, `zeegate-cloud/` |
@@ -119,7 +119,8 @@ Monorepo only (Replit: clone [sovereign-ecosystem](https://github.com/Shootle/so
 | Artifact | Location |
 |----------|----------|
 | tX* taxonomy and mint rules | [proof-of-resonance-exchange.md](./proof-of-resonance-exchange.md) |
-| CosmWasm workspace | [contracts/](../contracts/) |
+| CosmWasm workspace | [contracts/](../contracts/) — **`tx-tel` live** |
+| wasmd enablement | [COSMWASM-ENABLEMENT.md](../contracts/COSMWASM-ENABLEMENT.md) |
 | Smart contract overview | [smart-contracts.md](./smart-contracts.md) |
 
 ## TP-105 — Voixcoin

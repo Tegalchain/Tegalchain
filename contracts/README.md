@@ -1,8 +1,10 @@
 # Contracts Workspace
 
-This folder contains CosmWasm contracts for the Tegalchain PoR stack. Each contract is a Rust crate with a `src/` directory, `Cargo.toml` and tests.
+CosmWasm contracts for the Tegalchain PoR / PoREX stack. Each contract is a Rust crate under this workspace.
 
-Planned Transynth contracts (on-chain token IDs → workspace crate paths):
+**Active member (TP-104 lab):** `tx-tel/` — tXtel telecom Transynth with GLE/PoRE mint gates.
+
+Planned Transynth crates (not yet scaffolded):
 
 | Token ID | Crate path | Description |
 |----------|------------|-------------|
@@ -12,16 +14,20 @@ Planned Transynth contracts (on-chain token IDs → workspace crate paths):
 | **tXsoil** | `tx-soil/` | Soil Transynth |
 | **tXIREC** | `tx-irec/` | I-REC Transynth |
 | **tXenergy** | `tx-energy/` | Green energy production Transynth |
-| **tXtel** | `tx-tel/` | Telecom provenance Transynth |
+| **tXtel** | `tx-tel/` | Telecom provenance Transynth — **live crate** |
 
-Shared infrastructure crates:
+Shared infrastructure crates (planned): `token-factory/`, `por-evidence-registry/`, `poref-validation/`, `impact-market/`, `token-retirement/`, `validator-slashing/`, `reward-distribution/`.
 
-- `token-factory/`
-- `por-evidence-registry/`
-- `poref-validation/`
-- `impact-market/`
-- `token-retirement/`
-- `validator-slashing/`
-- `reward-distribution/`
+## Setup
 
-See contracts/DEVELOPMENT.md for setup and build instructions.
+```bash
+./scripts/install-rust.sh
+make test
+make build
+```
+
+## CosmWasm on cosmos-chain
+
+See [COSMWASM-ENABLEMENT.md](./COSMWASM-ENABLEMENT.md). Until `x/wasm` is wired, use the off-chain mint bridge in sovereign-ecosystem (`integrations/tx_tel_mint`).
+
+See [DEVELOPMENT.md](./DEVELOPMENT.md) for conventions.
