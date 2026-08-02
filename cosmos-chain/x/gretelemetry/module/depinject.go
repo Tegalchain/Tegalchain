@@ -6,10 +6,8 @@ import (
 	"cosmossdk.io/core/store"
 	"cosmossdk.io/depinject"
 	"cosmossdk.io/depinject/appconfig"
-	"cosmossdk.io/log"
 	"github.com/cosmos/cosmos-sdk/codec"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
-	ibckeeper "github.com/cosmos/ibc-go/v10/modules/core/keeper"
 
 	"github.com/Tegalchain/Tegalchain/chain/x/gretelemetry/keeper"
 	"github.com/Tegalchain/Tegalchain/chain/x/gretelemetry/types"

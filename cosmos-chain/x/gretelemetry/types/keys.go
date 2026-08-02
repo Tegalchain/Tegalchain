@@ -20,3 +20,6 @@ const (
 
 // ParamsKey is the prefix to retrieve all Params
 var ParamsKey = collections.NewPrefix("p_gretelemetry")
+
+// AnchorsKey stores GTR anchors by gtr_id (JSON payload).
+var AnchorsKey = collections.NewPrefix("a_gretelemetry")
