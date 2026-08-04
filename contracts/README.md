@@ -28,6 +28,6 @@ make build
 
 ## CosmWasm on cosmos-chain
 
-See [COSMWASM-ENABLEMENT.md](./COSMWASM-ENABLEMENT.md). Until `x/wasm` is wired, use the off-chain mint bridge in sovereign-ecosystem (`integrations/tx_tel_mint`).
+See [COSMWASM-ENABLEMENT.md](./COSMWASM-ENABLEMENT.md). `x/wasm` is wired (no IBC). Deploy with `./scripts/deploy-contracts.sh`, then set `TX_TEL_CONTRACT` so the oracle mint bridge (`integrations/tx_tel_mint`) broadcasts `ExecuteMsg::Mint`. Without a contract address, the bridge still records off-chain intents.
 
 See [DEVELOPMENT.md](./DEVELOPMENT.md) for conventions.

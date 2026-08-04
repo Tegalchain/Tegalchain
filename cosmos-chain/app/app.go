@@ -8,7 +8,8 @@ import (
 	"cosmossdk.io/depinject"
 	"cosmossdk.io/log"
 	storetypes "cosmossdk.io/store/types"
-
+	wasmkeeper "github.com/CosmWasm/wasmd/x/wasm/keeper"
+	cmtproto "github.com/cometbft/cometbft/proto/tendermint/types"
 	dbm "github.com/cosmos/cosmos-db"
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	"github.com/cosmos/cosmos-sdk/client"
@@ -63,6 +64,7 @@ type App struct {
 	BankKeeper    bankkeeper.Keeper
 	StakingKeeper *stakingkeeper.Keeper
 	DistrKeeper   distrkeeper.Keeper
+	WasmKeeper    wasmkeeper.Keeper
 
 	// simulation manager
 	sm                 *module.SimulationManager
@@ -143,6 +145,11 @@ func New(
 	// build app
 	app.App = appBuilder.Build(db, traceStore, baseAppOptions...)
 
+	// wasmd: non-depinject module (keeps gretelemetry DI path intact)
+	if err := app.registerWasmModules(appOpts); err != nil {
+		panic(err)
+	}
+
 	/****  Module Options ****/
 
 	// create the simulation manager and define the order of the modules for deterministic simulations
@@ -161,6 +168,11 @@ func New(
 	// })
 
 	if err := app.Load(loadLatest); err != nil {
+		panic(err)
+	}
+
+	// Pinned codes live in wasmvm memory and must be reloaded after process restart.
+	if err := app.WasmKeeper.InitializePinnedCodes(app.NewUncachedContext(true, cmtproto.Header{})); err != nil {
 		panic(err)
 	}
 

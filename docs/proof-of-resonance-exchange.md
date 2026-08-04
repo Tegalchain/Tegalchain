@@ -36,7 +36,7 @@ Mechanics
 | Consensus Confidence | 1.0 (oracle) |
 | Evidence Resonance | ≥ 50 |
 
-Implemented in `contracts/tx-tel/` (on-chain) and mirrored off-chain for intent recording until wasmd is enabled (`COSMWASM-ENABLEMENT.md`).
+Implemented in `contracts/tx-tel/` (on-chain) and mirrored off-chain for intent recording; with wasmd + `TX_TEL_CONTRACT`, the oracle bridge broadcasts `ExecuteMsg::Mint` (`COSMWASM-ENABLEMENT.md`).
 
 Distribution
 - Monthly distribution of newly minted Transynths (tX*): 60% miners, 20% DAO treasury, 15% validators, 5% community.

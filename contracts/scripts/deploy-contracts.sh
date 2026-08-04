@@ -2,13 +2,17 @@
 # Store + instantiate tx-tel on a wasmd-enabled cosmos-chain.
 #
 # Prerequisites:
-#   1. wasmd module enabled on chain (see contracts/COSMWASM-ENABLEMENT.md)
-#   2. Optimized (or cargo) wasm artifact at artifacts/tx_tel.wasm or tx-tel/target/...
-#   3. chaind on PATH, funded key (default alice / test keyring)
+#   1. cosmos-chain built with wasmd (see contracts/COSMWASM-ENABLEMENT.md)
+#   2. Local chain serving (./scripts/start-cosmos-chain.sh serve from sovereign-ecosystem)
+#   3. Optimized (or cargo) wasm artifact at artifacts/tx_tel.wasm or target/...
+#   4. chaind on PATH, funded key (default alice / test keyring)
+#   5. Prefer Rust 1.86.x when building the artifact (wasmvm v3 bulk-memory)
 #
 # Usage:
 #   ./scripts/deploy-contracts.sh
 #   TX_TEL_MINTER=$(chaind keys show alice -a --keyring-backend test) ./scripts/deploy-contracts.sh
+#
+# On success prints: export TX_TEL_CONTRACT=tegal1...
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"

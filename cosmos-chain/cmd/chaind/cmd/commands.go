@@ -9,6 +9,8 @@ import (
 
 	"cosmossdk.io/log"
 	confixcmd "cosmossdk.io/tools/confix/cmd"
+	"github.com/CosmWasm/wasmd/x/wasm"
+	wasmcli "github.com/CosmWasm/wasmd/x/wasm/client/cli"
 	dbm "github.com/cosmos/cosmos-db"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/debug"
@@ -54,10 +56,14 @@ func initRootCmd(
 		txCommand(),
 		keys.Commands(),
 	)
+
+	// wasmd CLI (not on depinject autocli path)
+	wasmcli.ExtendUnsafeResetAllCmd(rootCmd)
 }
 
 // addModuleInitFlags adds more flags to the start command.
 func addModuleInitFlags(startCmd *cobra.Command) {
+	wasm.AddModuleInitFlags(startCmd)
 }
 
 func queryCommand() *cobra.Command {
@@ -78,6 +84,7 @@ func queryCommand() *cobra.Command {
 		server.QueryBlocksCmd(),
 		authcmd.QueryTxCmd(),
 		server.QueryBlockResultsCmd(),
+		wasmcli.GetQueryCmd(),
 	)
 
 	return cmd
@@ -103,6 +110,7 @@ func txCommand() *cobra.Command {
 		authcmd.GetEncodeCommand(),
 		authcmd.GetDecodeCommand(),
 		authcmd.GetSimulateCmd(),
+		wasmcli.GetTxCmd(),
 	)
 
 	return cmd

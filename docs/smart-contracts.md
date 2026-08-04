@@ -8,7 +8,7 @@ Contracts in this workspace implement PoR registry, validator consensus helpers,
 - Token: **tXtel** (telecom provenance)
 - Mint gates (lab): EQS ≥ 0.70, RIV > 0, consensus confidence ≥ 1.0, evidence resonance ≥ 50
 - Minter: admin-configured oracle address (`ExecuteMsg::Mint`)
-- wasmd on `cosmos-chain`: see `contracts/COSMWASM-ENABLEMENT.md`
+- wasmd on `cosmos-chain`: wired (no IBC) — see `contracts/COSMWASM-ENABLEMENT.md`
 
 ```bash
 cd contracts && ./scripts/install-rust.sh && make test && make build

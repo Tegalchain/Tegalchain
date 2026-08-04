@@ -2,6 +2,7 @@ package cmd
 
 import (
 	cmtcfg "github.com/cometbft/cometbft/config"
+	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
 	serverconfig "github.com/cosmos/cosmos-sdk/server/config"
 )
 
@@ -20,9 +21,9 @@ func initCometBFTConfig() *cmtcfg.Config {
 // initAppConfig helps to override default appConfig template and configs.
 // return "", nil if no custom configuration is required for the application.
 func initAppConfig() (string, interface{}) {
-	// The following code snippet is just for reference.
 	type CustomAppConfig struct {
 		serverconfig.Config `mapstructure:",squash"`
+		Wasm                wasmtypes.NodeConfig `mapstructure:"wasm"`
 	}
 
 	// Optionally allow the chain developer to overwrite the SDK's default
@@ -44,18 +45,10 @@ func initAppConfig() (string, interface{}) {
 
 	customAppConfig := CustomAppConfig{
 		Config: *srvCfg,
+		Wasm:   wasmtypes.DefaultNodeConfig(),
 	}
 
-	customAppTemplate := serverconfig.DefaultConfigTemplate
-	// Edit the default template file
-	//
-	// customAppTemplate := serverconfig.DefaultConfigTemplate + `
-	// [wasm]
-	// # This is the maximum sdk gas (wasm and storage) that we allow for any x/wasm "smart" queries
-	// query_gas_limit = 300000
-	// # This is the number of wasm vm instances we keep cached in memory for speed-up
-	// # Warning: this is currently unstable and may lead to crashes, best to keep for 0 unless testing locally
-	// lru_size = 0`
+	customAppTemplate := serverconfig.DefaultConfigTemplate + wasmtypes.ConfigTemplate(wasmtypes.DefaultNodeConfig())
 
 	return customAppTemplate, customAppConfig
 }

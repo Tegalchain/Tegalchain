@@ -6,6 +6,8 @@ import (
 	"cosmossdk.io/client/v2/autocli"
 	"cosmossdk.io/depinject"
 	"cosmossdk.io/log"
+	"github.com/CosmWasm/wasmd/x/wasm"
+	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/config"
 	"github.com/cosmos/cosmos-sdk/codec"
@@ -40,6 +42,15 @@ func NewRootCmd() *cobra.Command {
 		&clientCtx,
 	); err != nil {
 		panic(err)
+	}
+
+	// wasmd is registered post-Build (no depinject ProvideModule). Attach basics for
+	// genesis DefaultGenesis + client codec so store/instantiate txs encode correctly.
+	wasmBasic := wasm.AppModuleBasic{}
+	moduleBasicManager[wasmtypes.ModuleName] = wasmBasic
+	wasmBasic.RegisterInterfaces(clientCtx.InterfaceRegistry)
+	if clientCtx.LegacyAmino != nil {
+		wasmBasic.RegisterLegacyAminoCodec(clientCtx.LegacyAmino)
 	}
 
 	rootCmd := &cobra.Command{

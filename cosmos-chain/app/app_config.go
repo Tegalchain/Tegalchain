@@ -13,6 +13,7 @@ import (
 	"cosmossdk.io/depinject/appconfig"
 	_ "github.com/Tegalchain/Tegalchain/chain/x/gretelemetry/module"
 	gretelemetrymoduletypes "github.com/Tegalchain/Tegalchain/chain/x/gretelemetry/types"
+	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
 	_ "github.com/cosmos/cosmos-sdk/x/bank" // import for side-effects
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 	_ "github.com/cosmos/cosmos-sdk/x/consensus" // import for side-effects
@@ -37,6 +38,7 @@ var (
 		{Account: minttypes.ModuleName, Permissions: []string{authtypes.Minter}},
 		{Account: stakingtypes.BondedPoolName, Permissions: []string{authtypes.Burner, stakingtypes.ModuleName}},
 		{Account: stakingtypes.NotBondedPoolName, Permissions: []string{authtypes.Burner, stakingtypes.ModuleName}},
+		{Account: wasmtypes.ModuleName, Permissions: []string{authtypes.Burner}},
 	}
 
 	// blocked account addresses
@@ -68,11 +70,16 @@ var (
 						distrtypes.ModuleName,
 						stakingtypes.ModuleName,
 						// chain modules
-						gretelemetrymoduletypes.ModuleName},
+						gretelemetrymoduletypes.ModuleName,
+						// wasmd last — may dispatch into other modules
+						wasmtypes.ModuleName,
+					},
 					EndBlockers: []string{
 						stakingtypes.ModuleName,
 						// chain modules
-						gretelemetrymoduletypes.ModuleName},
+						gretelemetrymoduletypes.ModuleName,
+						wasmtypes.ModuleName,
+					},
 					// The following is mostly only needed when ModuleName != StoreKey name.
 					OverrideStoreKeys: []*runtimev1alpha1.StoreKeyConfig{
 						{
@@ -91,7 +98,10 @@ var (
 						stakingtypes.ModuleName,
 						genutiltypes.ModuleName,
 						// chain modules
-						gretelemetrymoduletypes.ModuleName},
+						gretelemetrymoduletypes.ModuleName,
+						// wasmd after bank/staking; no IBC on this chain
+						wasmtypes.ModuleName,
+					},
 				}),
 			},
 			{
