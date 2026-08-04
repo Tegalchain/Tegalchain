@@ -1,1 +1,0 @@
-"""Tegalchain bridge package."""

@@ -1,4 +1,0 @@
-# Zeegate product version (semver). Major = product generation (v1 → 1.x.y, v2 → 2.x.y).
-generation=1
-version=1.1.0
-version_code=2

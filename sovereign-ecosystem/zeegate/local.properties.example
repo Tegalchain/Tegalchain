@@ -1,8 +1,0 @@
-# Copy to local.properties and set your Android SDK path.
-# Windows example:
-# sdk.dir=C\:\\Users\\YOUR_USER\\AppData\\Local\\Android\\Sdk
-#
-# WSL accessing Windows SDK:
-# sdk.dir=/mnt/c/Users/YOUR_USER/AppData/Local/Android/Sdk
-
-sdk.dir=/mnt/c/Users/it/AppData/Local/Android/Sdk

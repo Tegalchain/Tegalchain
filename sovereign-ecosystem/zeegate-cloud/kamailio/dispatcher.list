@@ -1,2 +1,0 @@
-# Zeegate lab dispatcher — set 1 = FreeSWITCH media pool
-1 sip:freeswitch:5080;transport=udp 0 0

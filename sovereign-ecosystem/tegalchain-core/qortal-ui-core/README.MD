@@ -1,1 +1,0 @@
-# Qortal UI Core
